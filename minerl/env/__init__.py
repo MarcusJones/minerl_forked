@@ -27,7 +27,8 @@ from minerl.env.core import MineRLEnv, missions_dir
 
 import numpy as np
 
-
+import logging
+logging.debug("Starting registration".format())
   
 register(
     id='MineRLTreechop-v0',
@@ -132,6 +133,14 @@ navigate_observation_space = spaces.Dict({
             'compassAngle': spaces.Box(low=-180.0, high=180.0, shape=(1,), dtype=np.float32)
         })
 
+navigate_observation_space_large = spaces.Dict({
+    'pov': spaces.Box(low=0, high=255, shape=(512, 512, 3), dtype=np.uint8),
+    'inventory': spaces.Dict({
+        'dirt': spaces.Box(low=0, high=2304, shape=(1,), dtype=np.int)
+    }),
+    'compassAngle': spaces.Box(low=-180.0, high=180.0, shape=(1,), dtype=np.float32)
+})
+
 register(
     id='MineRLNavigate-v0',
     entry_point='minerl.env:MineRLEnv',
@@ -142,6 +151,20 @@ register(
         'docstr': make_navigate_text('normal', False)
     },
     max_episode_steps=6000,
+)
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+logging.debug("Registering new env".format())
+register(
+    id='MineRLNavigate-v1',
+    entry_point='minerl.env:MineRLEnv',
+    kwargs={
+        'xml': os.path.join(missions_dir, 'navigation.xml'),
+        'observation_space': navigate_observation_space,
+        'action_space': navigate_action_space,
+        'docstr': make_navigate_text('normal', False)
+    },
+    max_episode_steps=1000,
 )
 
 register(
@@ -156,6 +179,19 @@ register(
     max_episode_steps=6000,
 )
 
+register(
+    id='MineRLNavigateDense-v1',
+    entry_point='minerl.env:MineRLEnv',
+    kwargs={
+        'xml': os.path.join(missions_dir, 'navigationDenseLarge.xml'),
+        'observation_space': navigate_observation_space_large,
+        'action_space': navigate_action_space ,
+        'docstr': make_navigate_text('normal', True)
+    },
+    max_episode_steps=6000,
+)
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 register(
     id='MineRLNavigateExtreme-v0',
