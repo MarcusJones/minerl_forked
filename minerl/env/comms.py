@@ -22,6 +22,7 @@ import socket
 import functools
 import time
 import logging
+import Pyro4
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +37,9 @@ def retry(func):
         for i in range(retry_count):
             try:
                 return func(*args, **kwargs)
+            except Pyro4.errors.PyroError as e: 
+                logger.error("An error occurred contacting the instance manager. Is it started!?")
+                raise e
             except Exception as e:
                 if retry_exc is None:
                     retry_exc = e
@@ -71,3 +75,17 @@ def recvall(sock, count):
         buf += newbuf
         count -= len(newbuf)
     return buf
+
+
+class QueueLogger(logging.StreamHandler):
+    def __init__(self, queue):
+        self._queue = queue
+        return super().__init__(None)
+    
+    def flush(self):
+        pass
+
+    
+    def emit(self, record):
+        self._queue.append((self.level, record))
+

@@ -5,7 +5,7 @@ Environment Handlers
 Minecraft is an extremely complex environment which provides players
 with visual, auditory, and informational observation of many complex
 data types.
-Further players interact with Minecraft using more than just embodied actions:
+Furthermore, players interact with Minecraft using more than just embodied actions:
 players can craft, build, destroy, smelt, enchant, manage their inventory,
 and even communicate with other players via a text chat.
 
@@ -79,12 +79,33 @@ Camera Control - :code:`camera`
 
 .. function:: camera : Box(2) [delta_pitch, delta_yaw]
 
-    This action changes the oritentation  of the agent's head.
+    This action changes the orientation  of the agent's head by the corresponding number of degrees.
     When the :code:`pov` observation is available, the 
     camera changes its orientation pitch by the first component
-    and its yaw by the second component.
+    and its yaw by the second component. Both :code:`delta_pitch` and :code:`delta_yaw` are limited to [-180, 180]
+    inclusive
 
     :type: :code:`np.float32`
     :shape: [2]
+
+
+Tool Control - :code:`camera`
+-------------------------------
+
+
+.. _equip:
+
+.. function:: equip : Enum('none', 'air', 'wooden_axe', 'wooden_pickaxe', 'stone_axe', 'stone_pickaxe', 'iron_axe', 'iron_pickaxe'))
+
+    This action equips the first instance of the specified item from the agents inventory to the main hand if the
+    specified item is present, otherwise does nothing. :code:`none` is never a valid item and functions as a no-op
+    action. :code:`air` matches any empty slot in an agent's inventory and functions as an un-equip action.
+
+    :type: :code:`np.int64`
+    :shape: [1]
+
+    .. note::
+        Agents may un-equip items by performing the :code:`equip air` action.
+
 
 

@@ -2,8 +2,11 @@ from minerl.data.data_pipeline import DataPipeline
 from minerl.data.download import download
 import os
 
+from minerl.data.version import DATA_VERSION, FILE_PREFIX, VERSION_FILE_NAME
 
-def make(environment, data_dir=None, num_workers=4, worker_batch_size=32, minimum_size_to_dequeue=32, force_download=False):
+import minerl.data.version
+
+def make(environment=None , data_dir=None, num_workers=4, worker_batch_size=32, minimum_size_to_dequeue=32, force_download=False):
     """
     Initalizes the data loader with the chosen environment
     
@@ -34,6 +37,9 @@ def make(environment, data_dir=None, num_workers=4, worker_batch_size=32, minimu
         else:
             raise ValueError("No data_dir provided and $MINERL_DATA_ROOT undefined."
                              "Specify force_download=True to download default dataset")
+
+
+    minerl.data.version.assert_version(data_dir)
 
     d = DataPipeline(
         os.path.join(data_dir, environment),

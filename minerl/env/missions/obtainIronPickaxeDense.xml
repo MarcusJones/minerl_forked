@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <Mission xmlns="http://ProjectMalmo.microsoft.com">
     <About>
-        <Summary>Obtain iron pickaxe experiment</Summary>
+        <Summary>$(ENV_NAME)</Summary>
     </About>
 
     <ModSettings>
-        <MsPerTick>150</MsPerTick>
+        <MsPerTick>50</MsPerTick>
     </ModSettings>
 
     <ServerSection>
         <ServerInitialConditions>
             <Time>
                 <StartTime>6000</StartTime>
-                <AllowPassageOfTime>false</AllowPassageOfTime>
             </Time>
-            <Weather>clear</Weather>
-            <AllowSpawning>false</AllowSpawning>
+            <AllowSpawning>true</AllowSpawning>
         </ServerInitialConditions>
         <ServerHandlers>
             <DefaultWorldGenerator forceReset="true"/>
-            <ServerQuitFromTimeUp timeLimitMs="300000" description="out_of_time"/>
+            <ServerQuitFromTimeUp timeLimitMs="900000" description="out_of_time"/>
             <ServerQuitWhenAnyAgentFinishes/>
         </ServerHandlers>
     </ServerSection>
@@ -33,6 +31,7 @@
                 <Width>64</Width>
                 <Height>64</Height>
             </VideoProducer>
+            <FileBasedPerformanceProducer/>
             <ObservationFromFullInventory flat="false"/>
             <ObservationFromFullStats/>
             <ObservationFromEquippedItem/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <Mission xmlns="http://ProjectMalmo.microsoft.com">
-  <About>
-      <Summary>Survival Treechop experiment</Summary>
-  </About>
+    <About>
+        <Summary>$(ENV_NAME)</Summary>
+    </About>
 
     <ModSettings>
          <MsPerTick>50</MsPerTick>
@@ -23,8 +23,9 @@
     <ServerHandlers>
       <FileWorldGenerator
         src= "$(MISSIONS_DIR)/forest_survival"
-        destroyAfterUse = "true"/>
-      <!--<BiomeGenerator forceReset="true" biome="3"/>-->
+        forceReset="true"/>
+<!--      <BiomeGenerator forceReset="true" biome="4"/>-->
+      <RandomizedStartDecorator/>
       <ServerQuitFromTimeUp timeLimitMs="400000"/>
       <ServerQuitWhenAnyAgentFinishes/>
     </ServerHandlers>
@@ -33,7 +34,7 @@
   <AgentSection mode="Survival">
     <Name>MineRLAgent</Name>
     <AgentStart>
-      <Placement x ="-22" y="61" z="278" yaw="134" pitch="22.2"/>
+      <!-- <Randomized>true</Randomized> -->
       <Inventory>
         <InventoryItem slot="0" type="iron_axe"/>
       </Inventory>
@@ -52,10 +53,14 @@
       <RewardForCollectingItem>
         <Item reward="1" type="log" />
       </RewardForCollectingItem>
+      <AgentQuitFromPossessingItem>
+        <Item type="log" amount="64"/>
+      </AgentQuitFromPossessingItem>
      <VideoProducer want_depth="false">
        <Width>64</Width>
        <Height>64</Height>
      </VideoProducer>
+     <FileBasedPerformanceProducer/>
     </AgentHandlers>
   </AgentSection>
 </Mission>
