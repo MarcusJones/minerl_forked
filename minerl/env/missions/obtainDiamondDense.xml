@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <Mission xmlns="http://ProjectMalmo.microsoft.com">
     <About>
-        <Summary>Obtain iron pickaxe experiment</Summary>
+        <Summary>$(ENV_NAME)</Summary>
     </About>
 
     <ModSettings>
-        <MsPerTick>150</MsPerTick>
+        <MsPerTick>50</MsPerTick>
     </ModSettings>
 
     <ServerSection>
         <ServerInitialConditions>
             <Time>
                 <StartTime>6000</StartTime>
-                <AllowPassageOfTime>false</AllowPassageOfTime>
             </Time>
-            <Weather>clear</Weather>
-            <AllowSpawning>false</AllowSpawning>
+            <AllowSpawning>true</AllowSpawning>
         </ServerInitialConditions>
         <ServerHandlers>
             <DefaultWorldGenerator forceReset="true"/>
@@ -33,6 +31,7 @@
                 <Width>64</Width>
                 <Height>64</Height>
             </VideoProducer>
+            <FileBasedPerformanceProducer/>
             <ObservationFromFullInventory flat="false"/>
             <ObservationFromFullStats/>
             <ObservationFromEquippedItem/>
@@ -83,7 +82,7 @@
                 <Item reward="256" type="iron_pickaxe" />
                 <Item reward="1024" type="diamond" />
             </RewardForCollectingItem> -->
-            <RewardForCollectingItemQuantity sparse="true" once="true">
+            <RewardForCollectingItemQuantity>
                 <Item amount="1" reward="1" type="log" />
                 <Item amount="1" reward="2" type="planks" />
                 <Item amount="1" reward="4" type="stick" />

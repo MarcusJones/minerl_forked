@@ -14,33 +14,41 @@ import coloredlogs
 coloredlogs.install(logging.DEBUG)
 
 
-NUM_EPISODES=10
+#import minerl.env.bootstrap
+#minerl.env.bootstrap._check_port_avail = lambda _,__: True
+
+NUM_EPISODES=5
 
 def main():
     """
     Tests running a simple environment.
     """
-    envs = [gym.make('MineRLTreechop-v0') for _ in range(3)]
+    env = gym.make('MineRLNavigateDense-v0')
     
     actions = [env.action_space.sample() for _ in range(2000)]
     xposes = []
     for _ in range(NUM_EPISODES):
-        obs, info = env.reset()
+        obs = env.reset()
         done = False
-        xpos = []
-        for act in actions:
-            obs, reward, done, info = env.step(
-                act)
-            
-            correct_info = json.loads(info)
-            xpos.append([correct_info["XPos"], correct_info["YPos"], correct_info["ZPos"], correct_info["Yaw"]])
-        xposes.append(xpos)
-    
+        netr = 0
+        t = 0
+        while not done:
+            t += 1
+            if t > 123:
+                done = True
+                break
+            random_act = env.action_space.noop()
 
-    y = np.array(xposes)
-    plt.plot(y[:,:,0].T, y[:,:,2].T)
-    plt.show()
+            obs, reward, done, info = env.step(
+                random_act)
+            # print(obs["compassAngle"])
+            netr += reward
+            # print(netr)
+            env.render()
+
+
+
     print("Demo complete.")
-    
+
 if __name__ == "__main__":
     main()

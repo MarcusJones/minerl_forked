@@ -67,11 +67,11 @@ Taking actions
 **As a warm up let's create a random agent.** 🧠 
 
 Now we can reset this environment to its first position
-and get our first observation from the agent by reseting the environment.
+and get our first observation from the agent by resetting the environment.
 
 .. code-block:: python
 
-    obs, _ = env.reset()
+    obs = env.reset()
 
 The :code:`obs` variable will be a dictionary containing the following
 observations returned by the environment. In the case of the
@@ -146,7 +146,7 @@ towards the target.** 🧠🧠🧠
 
 To do this at every step of the environment we will take the `noop`
 action with a few modifications; in particular, we will only move forward,
-jump, attack, and changw the agent's direction to minimize
+jump, attack, and change the agent's direction to minimize
 the angle between the agent's movement direction and it's target,  :code:`compassAngle`.
 
 .. code-block:: python
@@ -156,7 +156,7 @@ the angle between the agent's movement direction and it's target,  :code:`compas
     env = gym.make('MineRLNavigateDense-v0') 
     
     
-    obs, _ = env.reset() 
+    obs  = env.reset() 
     done = False 
     net_reward = 0
     
