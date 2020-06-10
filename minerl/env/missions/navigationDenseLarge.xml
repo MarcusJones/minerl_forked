@@ -21,8 +21,8 @@
             <DefaultWorldGenerator forceReset="true"/>
             <NavigationDecorator>
                 <randomPlacementProperties>
-                    <maxRandomizedRadius>64</maxRandomizedRadius>
-                    <minRandomizedRadius>64</minRandomizedRadius>
+                    <maxRandomizedRadius>1000</maxRandomizedRadius>
+                    <minRandomizedRadius>1000</minRandomizedRadius>
                     <maxRadius>8</maxRadius>
                     <minRadius>0</minRadius>
                     <block>diamond_block</block>
